@@ -1,0 +1,586 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="RentaCarModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Tbl_Cliente">
+          <Key>
+            <PropertyRef Name="IdCliente" />
+          </Key>
+          <Property Name="IdCliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fecha_Registro" Type="date" Nullable="false" />
+          <Property Name="Cant_Reservas" Type="int" />
+          <Property Name="IdPersona" Type="int" Nullable="false" />
+          <Property Name="Estado" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_Empleado">
+          <Key>
+            <PropertyRef Name="IdEmpleado" />
+          </Key>
+          <Property Name="IdEmpleado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Cargo" Type="varchar(max)" Nullable="false" />
+          <Property Name="Jefe_Inmediato" Type="varchar(max)" Nullable="false" />
+          <Property Name="Departamento" Type="varchar(max)" Nullable="false" />
+          <Property Name="IdUsuario" Type="int" Nullable="false" />
+          <Property Name="Estado" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_Imagen">
+          <Key>
+            <PropertyRef Name="IdImagen" />
+          </Key>
+          <Property Name="IdImagen" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Titulo" Type="varchar(max)" Nullable="false" />
+          <Property Name="Ruta" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_Persona">
+          <Key>
+            <PropertyRef Name="IdPersona" />
+          </Key>
+          <Property Name="IdPersona" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Identificacion" Type="bigint" Nullable="false" />
+          <Property Name="Nombre" Type="varchar(max)" Nullable="false" />
+          <Property Name="Apellido1" Type="varchar(max)" Nullable="false" />
+          <Property Name="Apellido2" Type="varchar(max)" />
+          <Property Name="Direccion" Type="varchar(max)" />
+          <Property Name="Telefono" Type="varchar(max)" Nullable="false" />
+          <Property Name="Email_Per" Type="varchar(max)" Nullable="false" />
+          <Property Name="Estado" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_Reserva">
+          <Key>
+            <PropertyRef Name="IdReserva" />
+          </Key>
+          <Property Name="IdReserva" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar(max)" Nullable="false" />
+          <Property Name="TipoPago" Type="varchar(max)" Nullable="false" />
+          <Property Name="FechaEntrega" Type="datetime" Nullable="false" />
+          <Property Name="FechaDevolucion" Type="datetime" Nullable="false" />
+          <Property Name="Ciudad" Type="varchar(max)" />
+          <Property Name="Monto" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="IdCliente" Type="int" Nullable="false" />
+          <Property Name="IdEmpleado" Type="int" Nullable="false" />
+          <Property Name="IdVehiculo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_Usuario">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email_Comp" Type="varchar(max)" Nullable="false" />
+          <Property Name="Contrasenia" Type="varchar(max)" Nullable="false" />
+          <Property Name="IdPersona" Type="int" Nullable="false" />
+          <Property Name="Estado" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_Vehiculo">
+          <Key>
+            <PropertyRef Name="IdVehiculo" />
+          </Key>
+          <Property Name="IdVehiculo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Placa" Type="varchar(max)" Nullable="false" />
+          <Property Name="Modelo" Type="varchar(max)" />
+          <Property Name="Marca" Type="varchar(max)" Nullable="false" />
+          <Property Name="Kilometraje" Type="varchar(max)" />
+          <Property Name="Color" Type="varchar(max)" />
+          <Property Name="Tipo_Vehiculo" Type="varchar(max)" />
+          <Property Name="Tipo_Combustible" Type="varchar(max)" />
+          <Property Name="IdImagen" Type="int" />
+          <Property Name="Estado" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Tbl_Cli_Per">
+          <End Role="Tbl_Persona" Type="Self.Tbl_Persona" Multiplicity="1" />
+          <End Role="Tbl_Cliente" Type="Self.Tbl_Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Persona">
+              <PropertyRef Name="IdPersona" />
+            </Principal>
+            <Dependent Role="Tbl_Cliente">
+              <PropertyRef Name="IdPersona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Imagen">
+          <End Role="Tbl_Imagen" Type="Self.Tbl_Imagen" Multiplicity="0..1" />
+          <End Role="Tbl_Vehiculo" Type="Self.Tbl_Vehiculo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Imagen">
+              <PropertyRef Name="IdImagen" />
+            </Principal>
+            <Dependent Role="Tbl_Vehiculo">
+              <PropertyRef Name="IdImagen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Res_Cli">
+          <End Role="Tbl_Cliente" Type="Self.Tbl_Cliente" Multiplicity="1" />
+          <End Role="Tbl_Reserva" Type="Self.Tbl_Reserva" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Cliente">
+              <PropertyRef Name="IdCliente" />
+            </Principal>
+            <Dependent Role="Tbl_Reserva">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Res_Emp">
+          <End Role="Tbl_Empleado" Type="Self.Tbl_Empleado" Multiplicity="1" />
+          <End Role="Tbl_Reserva" Type="Self.Tbl_Reserva" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Empleado">
+              <PropertyRef Name="IdEmpleado" />
+            </Principal>
+            <Dependent Role="Tbl_Reserva">
+              <PropertyRef Name="IdEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Res_Veh">
+          <End Role="Tbl_Vehiculo" Type="Self.Tbl_Vehiculo" Multiplicity="1" />
+          <End Role="Tbl_Reserva" Type="Self.Tbl_Reserva" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Vehiculo">
+              <PropertyRef Name="IdVehiculo" />
+            </Principal>
+            <Dependent Role="Tbl_Reserva">
+              <PropertyRef Name="IdVehiculo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Usuario">
+          <End Role="Tbl_Persona" Type="Self.Tbl_Persona" Multiplicity="1" />
+          <End Role="Tbl_Usuario" Type="Self.Tbl_Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Persona">
+              <PropertyRef Name="IdPersona" />
+            </Principal>
+            <Dependent Role="Tbl_Usuario">
+              <PropertyRef Name="IdPersona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Usuario_Emp">
+          <End Role="Tbl_Usuario" Type="Self.Tbl_Usuario" Multiplicity="1" />
+          <End Role="Tbl_Empleado" Type="Self.Tbl_Empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Tbl_Empleado">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RentaCarModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Cliente" EntityType="Self.Tbl_Cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Empleado" EntityType="Self.Tbl_Empleado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Imagen" EntityType="Self.Tbl_Imagen" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Persona" EntityType="Self.Tbl_Persona" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Reserva" EntityType="Self.Tbl_Reserva" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Usuario" EntityType="Self.Tbl_Usuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Vehiculo" EntityType="Self.Tbl_Vehiculo" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Tbl_Cli_Per" Association="Self.FK_Tbl_Cli_Per">
+            <End Role="Tbl_Persona" EntitySet="Tbl_Persona" />
+            <End Role="Tbl_Cliente" EntitySet="Tbl_Cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Imagen" Association="Self.FK_Tbl_Imagen">
+            <End Role="Tbl_Imagen" EntitySet="Tbl_Imagen" />
+            <End Role="Tbl_Vehiculo" EntitySet="Tbl_Vehiculo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Res_Cli" Association="Self.FK_Tbl_Res_Cli">
+            <End Role="Tbl_Cliente" EntitySet="Tbl_Cliente" />
+            <End Role="Tbl_Reserva" EntitySet="Tbl_Reserva" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Res_Emp" Association="Self.FK_Tbl_Res_Emp">
+            <End Role="Tbl_Empleado" EntitySet="Tbl_Empleado" />
+            <End Role="Tbl_Reserva" EntitySet="Tbl_Reserva" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Res_Veh" Association="Self.FK_Tbl_Res_Veh">
+            <End Role="Tbl_Vehiculo" EntitySet="Tbl_Vehiculo" />
+            <End Role="Tbl_Reserva" EntitySet="Tbl_Reserva" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Usuario" Association="Self.FK_Tbl_Usuario">
+            <End Role="Tbl_Persona" EntitySet="Tbl_Persona" />
+            <End Role="Tbl_Usuario" EntitySet="Tbl_Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Usuario_Emp" Association="Self.FK_Tbl_Usuario_Emp">
+            <End Role="Tbl_Usuario" EntitySet="Tbl_Usuario" />
+            <End Role="Tbl_Empleado" EntitySet="Tbl_Empleado" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RentaCarModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="RentaCarEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Tbl_Cliente" EntityType="RentaCarModel.Tbl_Cliente" />
+          <EntitySet Name="Tbl_Empleado" EntityType="RentaCarModel.Tbl_Empleado" />
+          <EntitySet Name="Tbl_Imagen" EntityType="RentaCarModel.Tbl_Imagen" />
+          <EntitySet Name="Tbl_Persona" EntityType="RentaCarModel.Tbl_Persona" />
+          <EntitySet Name="Tbl_Reserva" EntityType="RentaCarModel.Tbl_Reserva" />
+          <EntitySet Name="Tbl_Usuario" EntityType="RentaCarModel.Tbl_Usuario" />
+          <EntitySet Name="Tbl_Vehiculo" EntityType="RentaCarModel.Tbl_Vehiculo" />
+          <AssociationSet Name="FK_Tbl_Cli_Per" Association="RentaCarModel.FK_Tbl_Cli_Per">
+            <End Role="Tbl_Persona" EntitySet="Tbl_Persona" />
+            <End Role="Tbl_Cliente" EntitySet="Tbl_Cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Res_Cli" Association="RentaCarModel.FK_Tbl_Res_Cli">
+            <End Role="Tbl_Cliente" EntitySet="Tbl_Cliente" />
+            <End Role="Tbl_Reserva" EntitySet="Tbl_Reserva" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Res_Emp" Association="RentaCarModel.FK_Tbl_Res_Emp">
+            <End Role="Tbl_Empleado" EntitySet="Tbl_Empleado" />
+            <End Role="Tbl_Reserva" EntitySet="Tbl_Reserva" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Usuario_Emp" Association="RentaCarModel.FK_Tbl_Usuario_Emp">
+            <End Role="Tbl_Usuario" EntitySet="Tbl_Usuario" />
+            <End Role="Tbl_Empleado" EntitySet="Tbl_Empleado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Imagen" Association="RentaCarModel.FK_Tbl_Imagen">
+            <End Role="Tbl_Imagen" EntitySet="Tbl_Imagen" />
+            <End Role="Tbl_Vehiculo" EntitySet="Tbl_Vehiculo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Usuario" Association="RentaCarModel.FK_Tbl_Usuario">
+            <End Role="Tbl_Persona" EntitySet="Tbl_Persona" />
+            <End Role="Tbl_Usuario" EntitySet="Tbl_Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Res_Veh" Association="RentaCarModel.FK_Tbl_Res_Veh">
+            <End Role="Tbl_Vehiculo" EntitySet="Tbl_Vehiculo" />
+            <End Role="Tbl_Reserva" EntitySet="Tbl_Reserva" />
+          </AssociationSet>
+          <EntitySet Name="sysdiagrams" EntityType="RentaCarModel.sysdiagrams" />
+        </EntityContainer>
+        <EntityType Name="Tbl_Cliente">
+          <Key>
+            <PropertyRef Name="IdCliente" />
+          </Key>
+          <Property Name="IdCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fecha_Registro" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Cant_Reservas" Type="Int32" />
+          <Property Name="IdPersona" Type="Int32" Nullable="false" />
+          <Property Name="Estado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Tbl_Persona" Relationship="RentaCarModel.FK_Tbl_Cli_Per" FromRole="Tbl_Cliente" ToRole="Tbl_Persona" />
+          <NavigationProperty Name="Tbl_Reserva" Relationship="RentaCarModel.FK_Tbl_Res_Cli" FromRole="Tbl_Cliente" ToRole="Tbl_Reserva" />
+        </EntityType>
+        <EntityType Name="Tbl_Empleado">
+          <Key>
+            <PropertyRef Name="IdEmpleado" />
+          </Key>
+          <Property Name="IdEmpleado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Cargo" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Jefe_Inmediato" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Departamento" Type="String" Nullable="false" />
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+          <Property Name="Estado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Tbl_Reserva" Relationship="RentaCarModel.FK_Tbl_Res_Emp" FromRole="Tbl_Empleado" ToRole="Tbl_Reserva" />
+          <NavigationProperty Name="Tbl_Usuario" Relationship="RentaCarModel.FK_Tbl_Usuario_Emp" FromRole="Tbl_Empleado" ToRole="Tbl_Usuario" />
+        </EntityType>
+        <EntityType Name="Tbl_Imagen">
+          <Key>
+            <PropertyRef Name="IdImagen" />
+          </Key>
+          <Property Name="IdImagen" Type="Int32" Nullable="false" />
+          <Property Name="Titulo" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Ruta" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Tbl_Vehiculo" Relationship="RentaCarModel.FK_Tbl_Imagen" FromRole="Tbl_Imagen" ToRole="Tbl_Vehiculo" />
+        </EntityType>
+        <EntityType Name="Tbl_Persona">
+          <Key>
+            <PropertyRef Name="IdPersona" />
+          </Key>
+          <Property Name="IdPersona" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Identificacion" Type="Int64" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Apellido1" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Apellido2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Direccion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Email_Per" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Tbl_Cliente" Relationship="RentaCarModel.FK_Tbl_Cli_Per" FromRole="Tbl_Persona" ToRole="Tbl_Cliente" />
+          <NavigationProperty Name="Tbl_Usuario" Relationship="RentaCarModel.FK_Tbl_Usuario" FromRole="Tbl_Persona" ToRole="Tbl_Usuario" />
+        </EntityType>
+        <EntityType Name="Tbl_Reserva">
+          <Key>
+            <PropertyRef Name="IdReserva" />
+          </Key>
+          <Property Name="IdReserva" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TipoPago" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FechaEntrega" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FechaDevolucion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Ciudad" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Monto" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="IdCliente" Type="Int32" Nullable="false" />
+          <Property Name="IdEmpleado" Type="Int32" Nullable="false" />
+          <Property Name="IdVehiculo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Tbl_Cliente" Relationship="RentaCarModel.FK_Tbl_Res_Cli" FromRole="Tbl_Reserva" ToRole="Tbl_Cliente" />
+          <NavigationProperty Name="Tbl_Empleado" Relationship="RentaCarModel.FK_Tbl_Res_Emp" FromRole="Tbl_Reserva" ToRole="Tbl_Empleado" />
+          <NavigationProperty Name="Tbl_Vehiculo" Relationship="RentaCarModel.FK_Tbl_Res_Veh" FromRole="Tbl_Reserva" ToRole="Tbl_Vehiculo" />
+        </EntityType>
+        <EntityType Name="Tbl_Usuario">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email_Comp" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Contrasenia" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IdPersona" Type="Int32" Nullable="false" />
+          <Property Name="Estado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Tbl_Empleado" Relationship="RentaCarModel.FK_Tbl_Usuario_Emp" FromRole="Tbl_Usuario" ToRole="Tbl_Empleado" />
+          <NavigationProperty Name="Tbl_Persona" Relationship="RentaCarModel.FK_Tbl_Usuario" FromRole="Tbl_Usuario" ToRole="Tbl_Persona" />
+        </EntityType>
+        <EntityType Name="Tbl_Vehiculo">
+          <Key>
+            <PropertyRef Name="IdVehiculo" />
+          </Key>
+          <Property Name="IdVehiculo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Placa" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Modelo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Marca" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Kilometraje" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Color" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Tipo_Vehiculo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Tipo_Combustible" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IdImagen" Type="Int32" />
+          <Property Name="Estado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Tbl_Imagen" Relationship="RentaCarModel.FK_Tbl_Imagen" FromRole="Tbl_Vehiculo" ToRole="Tbl_Imagen" />
+          <NavigationProperty Name="Tbl_Reserva" Relationship="RentaCarModel.FK_Tbl_Res_Veh" FromRole="Tbl_Vehiculo" ToRole="Tbl_Reserva" />
+        </EntityType>
+        <Association Name="FK_Tbl_Cli_Per">
+          <End Type="RentaCarModel.Tbl_Persona" Role="Tbl_Persona" Multiplicity="1" />
+          <End Type="RentaCarModel.Tbl_Cliente" Role="Tbl_Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Persona">
+              <PropertyRef Name="IdPersona" />
+            </Principal>
+            <Dependent Role="Tbl_Cliente">
+              <PropertyRef Name="IdPersona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Res_Cli">
+          <End Type="RentaCarModel.Tbl_Cliente" Role="Tbl_Cliente" Multiplicity="1" />
+          <End Type="RentaCarModel.Tbl_Reserva" Role="Tbl_Reserva" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Cliente">
+              <PropertyRef Name="IdCliente" />
+            </Principal>
+            <Dependent Role="Tbl_Reserva">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Res_Emp">
+          <End Type="RentaCarModel.Tbl_Empleado" Role="Tbl_Empleado" Multiplicity="1" />
+          <End Type="RentaCarModel.Tbl_Reserva" Role="Tbl_Reserva" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Empleado">
+              <PropertyRef Name="IdEmpleado" />
+            </Principal>
+            <Dependent Role="Tbl_Reserva">
+              <PropertyRef Name="IdEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Usuario_Emp">
+          <End Type="RentaCarModel.Tbl_Usuario" Role="Tbl_Usuario" Multiplicity="1" />
+          <End Type="RentaCarModel.Tbl_Empleado" Role="Tbl_Empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Tbl_Empleado">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Imagen">
+          <End Type="RentaCarModel.Tbl_Imagen" Role="Tbl_Imagen" Multiplicity="0..1" />
+          <End Type="RentaCarModel.Tbl_Vehiculo" Role="Tbl_Vehiculo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Imagen">
+              <PropertyRef Name="IdImagen" />
+            </Principal>
+            <Dependent Role="Tbl_Vehiculo">
+              <PropertyRef Name="IdImagen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Usuario">
+          <End Type="RentaCarModel.Tbl_Persona" Role="Tbl_Persona" Multiplicity="1" />
+          <End Type="RentaCarModel.Tbl_Usuario" Role="Tbl_Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Persona">
+              <PropertyRef Name="IdPersona" />
+            </Principal>
+            <Dependent Role="Tbl_Usuario">
+              <PropertyRef Name="IdPersona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Res_Veh">
+          <End Type="RentaCarModel.Tbl_Vehiculo" Role="Tbl_Vehiculo" Multiplicity="1" />
+          <End Type="RentaCarModel.Tbl_Reserva" Role="Tbl_Reserva" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Vehiculo">
+              <PropertyRef Name="IdVehiculo" />
+            </Principal>
+            <Dependent Role="Tbl_Reserva">
+              <PropertyRef Name="IdVehiculo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RentaCarModelStoreContainer" CdmEntityContainer="RentaCarEntities">
+          <EntitySetMapping Name="Tbl_Cliente">
+            <EntityTypeMapping TypeName="RentaCarModel.Tbl_Cliente">
+              <MappingFragment StoreEntitySet="Tbl_Cliente">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
+                <ScalarProperty Name="Cant_Reservas" ColumnName="Cant_Reservas" />
+                <ScalarProperty Name="Fecha_Registro" ColumnName="Fecha_Registro" />
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Empleado">
+            <EntityTypeMapping TypeName="RentaCarModel.Tbl_Empleado">
+              <MappingFragment StoreEntitySet="Tbl_Empleado">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Departamento" ColumnName="Departamento" />
+                <ScalarProperty Name="Jefe_Inmediato" ColumnName="Jefe_Inmediato" />
+                <ScalarProperty Name="Cargo" ColumnName="Cargo" />
+                <ScalarProperty Name="IdEmpleado" ColumnName="IdEmpleado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Imagen">
+            <EntityTypeMapping TypeName="RentaCarModel.Tbl_Imagen">
+              <MappingFragment StoreEntitySet="Tbl_Imagen">
+                <ScalarProperty Name="Ruta" ColumnName="Ruta" />
+                <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+                <ScalarProperty Name="IdImagen" ColumnName="IdImagen" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Persona">
+            <EntityTypeMapping TypeName="RentaCarModel.Tbl_Persona">
+              <MappingFragment StoreEntitySet="Tbl_Persona">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Email_Per" ColumnName="Email_Per" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="Apellido2" ColumnName="Apellido2" />
+                <ScalarProperty Name="Apellido1" ColumnName="Apellido1" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Identificacion" ColumnName="Identificacion" />
+                <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Reserva">
+            <EntityTypeMapping TypeName="RentaCarModel.Tbl_Reserva">
+              <MappingFragment StoreEntitySet="Tbl_Reserva">
+                <ScalarProperty Name="IdVehiculo" ColumnName="IdVehiculo" />
+                <ScalarProperty Name="IdEmpleado" ColumnName="IdEmpleado" />
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="Monto" ColumnName="Monto" />
+                <ScalarProperty Name="Ciudad" ColumnName="Ciudad" />
+                <ScalarProperty Name="FechaDevolucion" ColumnName="FechaDevolucion" />
+                <ScalarProperty Name="FechaEntrega" ColumnName="FechaEntrega" />
+                <ScalarProperty Name="TipoPago" ColumnName="TipoPago" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="IdReserva" ColumnName="IdReserva" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Usuario">
+            <EntityTypeMapping TypeName="RentaCarModel.Tbl_Usuario">
+              <MappingFragment StoreEntitySet="Tbl_Usuario">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
+                <ScalarProperty Name="Contrasenia" ColumnName="Contrasenia" />
+                <ScalarProperty Name="Email_Comp" ColumnName="Email_Comp" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Vehiculo">
+            <EntityTypeMapping TypeName="RentaCarModel.Tbl_Vehiculo">
+              <MappingFragment StoreEntitySet="Tbl_Vehiculo">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="IdImagen" ColumnName="IdImagen" />
+                <ScalarProperty Name="Tipo_Combustible" ColumnName="Tipo_Combustible" />
+                <ScalarProperty Name="Tipo_Vehiculo" ColumnName="Tipo_Vehiculo" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="Kilometraje" ColumnName="Kilometraje" />
+                <ScalarProperty Name="Marca" ColumnName="Marca" />
+                <ScalarProperty Name="Modelo" ColumnName="Modelo" />
+                <ScalarProperty Name="Placa" ColumnName="Placa" />
+                <ScalarProperty Name="IdVehiculo" ColumnName="IdVehiculo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="RentaCarModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

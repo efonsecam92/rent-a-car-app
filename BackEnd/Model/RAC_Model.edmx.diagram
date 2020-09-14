@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7368f9e5c192453fa122188bf7611501" Name="Diagram1">
+        <EntityTypeShape EntityType="RentaCarModel.Tbl_Cliente" Width="1.5" PointX="3" PointY="1.75" />
+        <EntityTypeShape EntityType="RentaCarModel.Tbl_Empleado" Width="1.5" PointX="5.25" PointY="4.875" />
+        <EntityTypeShape EntityType="RentaCarModel.Tbl_Imagen" Width="1.5" PointX="3" PointY="9.625" />
+        <EntityTypeShape EntityType="RentaCarModel.Tbl_Persona" Width="1.5" PointX="0.75" PointY="3" />
+        <EntityTypeShape EntityType="RentaCarModel.Tbl_Reserva" Width="1.5" PointX="7.5" PointY="2.875" />
+        <EntityTypeShape EntityType="RentaCarModel.Tbl_Usuario" Width="1.5" PointX="3" PointY="5" />
+        <EntityTypeShape EntityType="RentaCarModel.Tbl_Vehiculo" Width="1.5" PointX="5.25" PointY="8.875" />
+        <AssociationConnector Association="RentaCarModel.FK_Tbl_Cli_Per" />
+        <AssociationConnector Association="RentaCarModel.FK_Tbl_Res_Cli" />
+        <AssociationConnector Association="RentaCarModel.FK_Tbl_Res_Emp" />
+        <AssociationConnector Association="RentaCarModel.FK_Tbl_Usuario_Emp" />
+        <AssociationConnector Association="RentaCarModel.FK_Tbl_Imagen" />
+        <AssociationConnector Association="RentaCarModel.FK_Tbl_Usuario" />
+        <AssociationConnector Association="RentaCarModel.FK_Tbl_Res_Veh" />
+        <EntityTypeShape EntityType="RentaCarModel.sysdiagrams" Width="1.5" PointX="7.375" PointY="7.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
