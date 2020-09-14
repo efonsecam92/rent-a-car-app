@@ -1,0 +1,112 @@
+﻿@model IEnumerable<RentaCar.Models.VehiculosViewModel>
+
+@{
+    ViewBag.Title = "Lista Vehículos";
+}
+
+@if (ViewBag.Msg == "Exitoso")
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            swal({
+                title: "Confirmación",
+                text: "¡Se agrego exitosamente!",
+                icon: "success"
+            });
+        }
+    </script>
+}
+
+@if (ViewBag.Msg == "Eliminado")
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            swal({
+                title: "Confirmación",
+                text: "¡Se eliminó exitosamente!",
+                icon: "warning"
+            });
+        }
+    </script>
+}
+
+<h2>Vehículos</h2>
+<h5>Lista de vehículos disponibles en el sistema:</h5>
+
+<hr class="hr-custom" />
+
+<div class="container" style="text-align: left; padding: 5px;">
+    <a href="~/Vehiculo/Create" class="btn btn-default">Nuevo</a>
+</div>
+<br />
+
+<table class="table table-striped">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Placa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Modelo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Marca)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Color)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Kilometraje)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tipo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TipoCombustible)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdImagen)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Estado)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Placa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Modelo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Marca)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Color)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Kilometraje)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tipo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipoCombustible)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdImagen)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estado)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { idVehiculo = item.IdVehiculo }) |
+                @Html.ActionLink("Eliminar", "Delete", new { idVehiculo = item.IdVehiculo })
+            </td>
+        </tr>
+    }
+
+</table>

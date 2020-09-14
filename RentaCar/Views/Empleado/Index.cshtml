@@ -1,0 +1,93 @@
+﻿@model IEnumerable<RentaCar.Models.EmpleadosViewModel>
+
+@{
+    ViewBag.Title = "Lista Empleados";
+}
+
+@if (ViewBag.Msg == "Exitoso")
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            swal({
+                title: "Confirmación",
+                text: "¡Se agrego exitosamente!",
+                icon: "success"
+            });
+        }
+    </script>
+}
+
+@if (ViewBag.Msg == "Eliminado")
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            swal({
+                title: "Confirmación",
+                text: "¡Se eliminó exitosamente!",
+                icon: "warning"
+            });
+        }
+    </script>
+}
+
+<h2>Empleados</h2>
+<h5>Lista de empleados registrados en el sistema:</h5>
+<hr class="hr-custom" />
+
+<div class="container" style="text-align: left; padding: 5px;">
+    <a href="~/Empleado/Create" class="btn btn-default">Nuevo</a>
+</div>
+<br />
+
+<table class="table table-striped">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IdEmpleado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cargo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Jefe_Inmediato)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Departamento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdUsuario)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Estado)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdEmpleado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cargo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Jefe_Inmediato)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Departamento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdUsuario)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estado)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { IdEmpleado = item.IdEmpleado }) |
+                @Html.ActionLink("Eliminar", "Delete", new { IdEmpleado = item.IdEmpleado })
+            </td>
+        </tr>
+    }
+
+</table>

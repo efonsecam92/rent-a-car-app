@@ -1,0 +1,81 @@
+﻿@model List<RentaCar.Models.VehiculosViewModel>
+@{
+    ViewBag.Title = "Página de Inicio";
+}
+
+    <div class="jumbotron" style="text-align:center;">
+        <h2 style="color:#09477b; text-align:center;">¡Bienvenido a nuestro sitio!</h2>
+        <div>
+            <img src="~/Content/Resources/img/logo.png" style="width:40%;" alt="Image">
+        </div>
+        <div>
+            <h2>Reserve su vehículo ahora</h2>
+            <p>
+                Fixxy le ofrece toda la comodidad y confianza para que viaje tranquilo y seguro, 
+                revise la lista y reserve el vehículo que más se adapte a su necesidad.
+            </p>
+        </div>
+    </div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Toyota</h2>
+        <img src="~/Content/Resources/img/toyota.png" style="height:120px; width:200px;" alt="Image">
+        <p>
+            Toyota Motor Corporation, ​ más conocida como Toyota, es una compañía de fabricación de automóviles japonesa. 
+            Su sede central se encuentra en Toyota y Bunkyō aunque, por su carácter multinacional, cuenta con fábricas y sedes alrededor de todo el mundo.
+        </p>
+        <p><a class="btn btn-default" href="https://www.toyotacr.com">Visitar &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Nissan</h2>
+        <img src="~/Content/Resources/img/nissan.jpg" style="height:120px; width:200px;" alt="Image">
+        <p>
+            Nissan Motor Company, Limited es un fabricante japonés de automóviles, con base en Yokohama. Su nombre común, Nissan,
+            es un acrónimo de "Nippon Sangyo". Está entre las principales compañías automotrices en términos de producción anual de vehículos.
+        </p>
+        <p><a class="btn btn-default" href="https://www.nissancr.com">Visitar &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Chevrolet</h2>
+        <img src="~/Content/Resources/img/chevy.png" style="height:120px; width:200px;" alt="Image">
+        <p>
+            Chevrolet es una marca de automóviles y camiones con sede en Estados Unidos perteneciente al grupo General Motors. Nació de la alianza
+            de Louis Chevrolet y William Crapo Durant el 3 de noviembre de 1911,2​ en los Estados Unidos, fabricando automóviles robustos.
+        </p>
+        <p><a class="btn btn-default" href="http://www.chevroletcr.com">Visitar &raquo;</a></p>
+    </div>
+</div>
+
+<hr class="hr-custom" />
+
+<h3>Reservá ahora tu vehículo:</h3>
+<br />
+
+<div class="row">
+    @foreach (var vehiculo in Model)
+    {
+        if (vehiculo.Estado == 1)
+        {
+            <div class="col-sm-4">
+                <a href="~/Reserva/Create/@vehiculo.IdVehiculo">
+                    <div class="panel panel-group panel-primary">
+                        <div class="panel-heading">@vehiculo.Tipo</div>
+                        <div class="panel-body"><img src="@Url.Content(vehiculo.Url)" class="img-responsive" style="width:300px; height:180px;" alt="Image"></div>
+                        <div class="panel-footer" style="text-align:center;">@vehiculo.Marca @vehiculo.Modelo</div>
+                    </div>
+                </a>
+            </div>
+        }
+        else
+        {
+            <div class="col-sm-4">
+                <div class="panel panel-group panel-danger" style="max-width:100%;">
+                    <div class="panel-heading">@vehiculo.Tipo</div>
+                    <div class="panel-body"><img src="@Url.Content(vehiculo.Url)" class="img-responsive" style="width:300px; height:180px;" alt="Image"></div>
+                    <div class="panel-footer" style="text-align:center;">@vehiculo.Marca @vehiculo.Modelo</div>
+                </div>
+            </div>
+        }
+    }
+</div>

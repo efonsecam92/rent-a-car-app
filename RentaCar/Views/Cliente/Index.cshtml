@@ -1,0 +1,88 @@
+﻿@model IEnumerable<RentaCar.Models.ClientesViewModel>
+
+@{
+    ViewBag.Title = "Lista Clientes";
+}
+
+@if (ViewBag.Msg == "Exitoso")
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            swal({
+                title: "Confirmación",
+                text: "¡Se agrego exitosamente!",
+                icon: "success"
+            });
+        }
+    </script>
+}
+
+@if (ViewBag.Msg == "Eliminado")
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            swal({
+                title: "Confirmación",
+                text: "¡Se eliminó exitosamente!",
+                icon: "warning"
+            });
+        }
+    </script>
+}
+
+<h2>Clientes</h2>
+<h5>Lista de clientes registrados en el sistema:</h5>
+<hr class="hr-custom" />
+
+<div class="container" style="text-align: left; padding: 5px;">
+    <a href="~/Cliente/Create" class="btn btn-default">Nuevo</a>
+</div>
+<br />
+<table class="table table-striped">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IdCliente)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdPersona)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fecha_Registro)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cant_Reservas)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Estado)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdCliente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdPersona)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fecha_Registro)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cant_Reservas)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estado)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { idCliente = item.IdCliente }) |
+                @Html.ActionLink("Eliminar", "Delete", new { IdCliente = item.IdCliente })
+            </td>
+        </tr>
+    }
+
+</table>
+
+

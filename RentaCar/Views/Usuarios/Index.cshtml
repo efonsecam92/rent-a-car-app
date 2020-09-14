@@ -1,0 +1,82 @@
+﻿@model IEnumerable<RentaCar.Models.UsuariosViewModel>
+
+@{
+    ViewBag.Title = "Lista Usuarios";
+}
+
+@if (ViewBag.Msg == "Exitoso")
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            swal({
+                title: "Confirmación",
+                text: "¡Se agrego exitosamente!",
+                icon: "success"
+            });
+        }
+    </script>
+}
+
+@if (ViewBag.Msg == "Eliminado")
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            swal({
+                title: "Confirmación",
+                text: "¡Se eliminó exitosamente!",
+                icon: "warning"
+            });
+        }
+    </script>
+}
+
+<h2>Usuarios</h2>
+<h5>Lista de usuarios registrados en el sistema:</h5>
+
+<hr class="hr-custom" />
+
+<div class="container" style="text-align: left; padding: 5px;">
+    <a href="~/Empleado/Create" class="btn btn-default">Nuevo</a>
+</div>
+<br />
+
+<table class="table table-striped">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IdPersona)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Password)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Estado)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdPersona)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Password)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estado)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { pidUsuario = item.IdUsuario }) |
+                @Html.ActionLink("Eliminar", "Delete", new { pidUsuario = item.IdUsuario })
+            </td>
+        </tr>
+    }
+
+</table>
